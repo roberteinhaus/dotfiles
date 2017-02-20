@@ -1,0 +1,32 @@
+global !p
+from datetime import date, timedelta
+import os
+import locale
+
+if os.name == 'nt':
+    locale.setlocale(locale.LC_ALL, 'deu_deu')
+else:
+    locale.setlocale(locale.LC_ALL, 'de_DE')
+
+def get_date(name):
+    if name == 'zeit':
+        days = 0
+    else:
+        days = int(name[4:])
+    day = date.today() - timedelta(days)
+    return day.strftime("%A, %Y-%m-%d")
+endglobal
+
+snippet rei
+---
+title: ${1:Titel}
+date: ${2:`!v strftime("%A, %Y-%m-%d")`}
+---
+$0
+endsnippet
+
+snippet "zeit([1-9]*)" "Datum und Zeitstempel" br
+## `!p snip.rv = get_date(match.group(0))`
+$0
+
+endsnippet
