@@ -2,7 +2,7 @@
 echo "# This will build your new home!"
 echo ""
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$( cd "$( dirname "$0" )" && pwd )"
 DIR=`dirname $DIR`
 
 if [ `command -v git` ]; then
