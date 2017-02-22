@@ -12,6 +12,19 @@ if has("win32") || has("win32")
     :set guioptions-=r  "remove right scrollbar
     :set guioptions-=L  "remove left scrollbar
     :set guioptions-=b  "remove bottom scrollbar
+    if has("gui_running")
+        " GUI is running or is about to start.
+        " Maximize gvim window (for an alternative on Windows, see simalt below).
+        set lines=999 columns=999
+    else
+        " This is console Vim.
+        if exists("+lines")
+            set lines=50
+        endif
+        if exists("+columns")
+            set columns=100
+        endif
+    endif
 else
     set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()

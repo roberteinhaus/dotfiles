@@ -9,15 +9,15 @@ if os.name == 'nt':
 #    locale.setlocale(locale.LC_ALL, 'de_DE')
 
 def get_date(name):
-    if name == 'zeit':
+    if name == 'd':
         days = 0
     else:
-        days = int(name[4:])
+        days = int(name[1:])
     day = date.today() - timedelta(days)
     return day.strftime("%A, %Y-%m-%d")
 endglobal
 
-snippet rei
+snippet rei "Header" b
 ---
 title: ${1:Titel}
 date: ${2:`!v strftime("%A, %Y-%m-%d")`}
@@ -25,8 +25,18 @@ date: ${2:`!v strftime("%A, %Y-%m-%d")`}
 $0
 endsnippet
 
-snippet "zeit([1-9]*)" "Datum und Zeitstempel" br
+snippet "d([1-9]*)" "Datum und Zeitstempel" br
 ## `!p snip.rv = get_date(match.group(0))`
 $0
 
+endsnippet
+
+snippet m "Mittag" b
+- _${1:12:45} - ${2:14:00} Mittag_
+$0
+endsnippet
+
+snippet n "Neuer Eintrag" b
+- $1 - $2 $3
+$0
 endsnippet
