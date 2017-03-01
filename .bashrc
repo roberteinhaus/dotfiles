@@ -24,5 +24,8 @@ fi
 
 if [ `command -v git` ]; then
     alias t='task'
+    alias ts='task pro:SLA'
+    alias th='task pro:privat'
     task sync
+
 fi
