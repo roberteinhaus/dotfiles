@@ -24,8 +24,8 @@ fi
 
 if [ `command -v task` ]; then
     alias ta='task'
-    alias ts='task pro:SLA'
-    alias th='task pro:privat'
+    alias ts='task pro:work'
+    alias th='task pro:home'
     alias t='task pro:$ENVIRONMENT'
     task sync
 fi
