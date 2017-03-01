@@ -22,7 +22,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-if [ `command -v git` ]; then
+if [ `command -v task` ]; then
     alias t='task'
     alias ts='task pro:SLA'
     alias th='task pro:privat'
