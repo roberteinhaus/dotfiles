@@ -22,12 +22,13 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+source ~/.bash_customvars
+
 if [ `command -v task` ]; then
     alias ta='task'
     alias ts='task pro:work'
     alias th='task pro:home'
     alias t='task pro:$ENVIRONMENT'
-    task sync
+    task sync &> /dev/null
+    task pro:$ENVIRONMENT
 fi
-
-source ~/.bash_customvars
