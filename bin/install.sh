@@ -47,6 +47,7 @@ else
     ln -s $BASHRC ~/.bashrc
 fi
 
+source ~/.bashrc
 
 ########################################
 #  create and populate .vim directory  #
