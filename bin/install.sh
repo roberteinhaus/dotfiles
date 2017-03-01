@@ -20,6 +20,16 @@ if [ $GIT = true ]; then
     git pull
 fi
 
+while true; do
+    read -p "Install Home or Work environment? (H/W)" hw
+    case $hw in
+        [Hh]* ) 
+            echo "export ENVIRONMENT=home" > ~/.bash_customvars; break;;
+        [Ww]* )
+            echo "export ENVIRONMENT=work" > ~/.bash_customvars; break;;
+        * ) echo "Please answer H or W.";;
+    esac
+done
 
 #############################
 #  backup and link .bashrc  #
@@ -36,6 +46,7 @@ else
     echo "-> link $BASHRC to ~/.bashrc"
     ln -s $BASHRC ~/.bashrc
 fi
+
 
 ########################################
 #  create and populate .vim directory  #

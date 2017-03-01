@@ -23,9 +23,11 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 if [ `command -v task` ]; then
-    alias t='task'
+    alias ta='task'
     alias ts='task pro:SLA'
     alias th='task pro:privat'
+    alias t='task pro:$ENVIRONMENT'
     task sync
-
 fi
+
+source ~/.bash_customvars
