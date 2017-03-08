@@ -3,6 +3,8 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+export PATH=$PATH:~/bin
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -26,10 +28,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 source ~/.bash_customvars
-
-if [ `command -v screenfetch` ]; then
-    screenfetch
-fi
 
 if [ `command -v task` ]; then
     alias ta='task'

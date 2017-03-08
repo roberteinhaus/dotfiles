@@ -21,7 +21,7 @@ if [ $GIT = true ]; then
 fi
 
 while true; do
-    read -p "Install Home or Work environment? (H/W)" hw
+    read -p "-> Install Home or Work environment? (H/W)" hw
     case $hw in
         [Hh]* ) 
             echo "export ENVIRONMENT=home" > ~/.bash_customvars; break;;
@@ -30,6 +30,25 @@ while true; do
         * ) echo "Please answer H or W.";;
     esac
 done
+
+echo "-> We are working on"
+case "$(uname -s)" in
+   Darwin)
+     echo 'Mac OS X'
+     ;;
+   Linux)
+     echo 'Linux'
+     echo "$DIR/bin/screenfetch" >> ~/.bash_customvars
+     ;;
+   CYGWIN*|MINGW32*|MSYS*)
+     echo 'MS Windows'
+     echo "$DIR/bin/screeny" >> ~/.bash_customvars
+     ;;
+   # Add here more strings to compare
+   *)
+     echo 'other OS' 
+     ;;
+esac
 
 #############################
 #  backup and link .bashrc  #
