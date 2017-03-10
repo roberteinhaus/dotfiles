@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "# This will build your new home!"
 echo ""
 
@@ -20,15 +20,15 @@ if [ $GIT = true ]; then
     git pull
 fi
 
-while true; do
-    read -p "-> Install Home or Work environment? (H/W)" hw
-    case $hw in
-        [Hh]* ) 
-            echo "export ENVIRONMENT=home" > ~/.bash_customvars; break;;
-        [Ww]* )
-            echo "export ENVIRONMENT=work" > ~/.bash_customvars; break;;
-        * ) echo "Please answer H or W.";;
-    esac
+echo "-> Install Home or Work environment?"
+select myenv in home work
+do
+    if [ -z $myenv ]; then
+        echo "invalid option"
+    else
+        echo "export ENVIRONMENT=$myenv" > ~/.bash_customvars
+        break
+    fi
 done
 
 echo "-> We are working on"
@@ -126,6 +126,35 @@ if [ $GIT = false ]; then
 else
     echo "-> installing vim Plugins"
     vim -E -c 'PluginInstall' -c 'qa!' 2>/dev/null
+fi
+
+#################################
+#  backup and link tmux config  #
+#################################
+if [ `command -v tmux` ]; then
+    TMUXRC="${DIR}/.tmux.conf"
+    if [ -f ~/.tmux.conf ]; then
+        if [ ! `readlink -f ~/.tmux.conf` = $TMUXRC ]; then
+            echo "-> move ~/.tmux.conf to ~/.tmux.conf_bak"
+            mv ~/.tmux.conf ~/.tmux.conf_bak
+            echo "-> link $TMUXRC to ~/.tmux.conf"
+            ln -s $TMUXRC ~/.tmux.conf
+        fi
+    else
+        echo "-> link $TMUXRC to ~/.tmux.conf"
+        ln -s $TMUXRC ~/.tmux.conf
+    fi
+
+    echo "-> Please select tmux color scheme"
+    select tmuxcolor in blue cyan gray green magenta orange red yellow
+    do
+        if [ -z $tmuxcolor ]; then
+            echo "invalid option"
+        else
+            echo "source-file \"$DIR/tmux-themes/${tmuxcolor}.tmuxtheme\"" > ~/.tmux_theme
+            break
+        fi
+    done
 fi
 
 echo ""
