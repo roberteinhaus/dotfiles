@@ -5,16 +5,58 @@ echo ""
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 DIR=`dirname $DIR`
 
+##################################
+#  check for installed packages  #
+##################################
+
+ask_install () {
+    echo "-> Do you want me to install $1?"
+    select yn in yes no
+    do
+        if [ -z $yn ]; then
+            echo "invalid option"
+        elif [ "$yn" == "yes" ]; then
+            INSTALL="$INSTALL $1"
+            break
+        elif [ "$yn" == "no" ]; then
+            break
+        fi
+    done
+}
+
+INSTALL=""
+if [ ! `command -v git` ]; then
+    GIT=false
+    ask_install "git"
+fi
+if [ ! `command -v vim` ]; then
+    VIM=false
+    ask_install "vim"
+fi
+if [ ! `command -v tmux` ]; then
+    TMUX=false
+    ask_install "tmux"
+fi
+
+if [ "$INSTALL" != "" ]; then
+    echo "-> Installing ${INSTALL}"
+    sudo apt-get install ${INSTALL}    
+fi
+
 if [ `command -v git` ]; then
     GIT=true
-else
-    GIT=false
+fi
+if [ `command -v vim` ]; then
+    VIM=true
+fi
+if [ `command -v tmux` ]; then
+    TMUX=true
 fi
 
 #######################
 #  updating dotfiles  #
 #######################
-if [ $GIT = true ]; then
+if [ "$GIT" = true ]; then
     echo "-> updating dotfiles"
     cd $DIR
     git pull
@@ -26,7 +68,7 @@ do
     if [ -z $myenv ]; then
         echo "invalid option"
     else
-        echo "export ENVIRONMENT=$myenv" > ~/.bash_customvars
+        echo "export ENVIRONMENT=$myenv" > ${HOME}/.bash_customvars
         break
     fi
 done
@@ -38,11 +80,11 @@ case "$(uname -s)" in
      ;;
    Linux)
      echo 'Linux'
-     echo "$DIR/bin/screenfetch" >> ~/.bash_customvars
+     echo "$DIR/bin/screenfetch" >> ${HOME}/.bash_customvars
      ;;
    CYGWIN*|MINGW32*|MSYS*)
      echo 'MS Windows'
-     echo "$DIR/bin/screeny" >> ~/.bash_customvars
+     echo "$DIR/bin/screeny" >> ${HOME}/.bash_customvars
      ;;
    # Add here more strings to compare
    *)
@@ -54,74 +96,74 @@ esac
 #  backup and link .bashrc  #
 #############################
 BASHRC="${DIR}/.bashrc"
-if [ -f ~/.bashrc ]; then
-    if [ ! `readlink -f ~/.bashrc` = $BASHRC ]; then
-        echo "-> move ~/.bashrc to ~/.bashrc_bak"
-        mv ~/.bashrc ~/.bashrc_bak
-        echo "-> link $BASHRC to ~/.bashrc"
-        ln -s $BASHRC ~/.bashrc
+if [ -f ${HOME}/.bashrc ]; then
+    if [ ! `readlink -f ${HOME}/.bashrc` = $BASHRC ]; then
+        echo "-> move ${HOME}/.bashrc to ${HOME}/.bashrc_bak"
+        mv ${HOME}/.bashrc ${HOME}/.bashrc_bak
+        echo "-> link $BASHRC to ${HOME}/.bashrc"
+        ln -s $BASHRC ${HOME}/.bashrc
     fi
 else
-    echo "-> link $BASHRC to ~/.bashrc"
-    ln -s $BASHRC ~/.bashrc
+    echo "-> link $BASHRC to ${HOME}/.bashrc"
+    ln -s $BASHRC ${HOME}/.bashrc
 fi
 
-source ~/.bashrc
+source ${HOME}/.bashrc
 
 ########################################
 #  create and populate .vim directory  #
 ########################################
-if [ ! -d ~/.vim ]; then
-    echo "-> creating ~/.vim"
-    mkdir ~/.vim
+if [ ! -d ${HOME}/.vim ]; then
+    echo "-> creating ${HOME}/.vim"
+    mkdir ${HOME}/.vim
 fi
-if [ ! -d ~/.vim/bundle ]; then
-    echo "-> creating ~/.vim/bundle"
-    mkdir ~/.vim/bundle
+if [ ! -d ${HOME}/.vim/bundle ]; then
+    echo "-> creating ${HOME}/.vim/bundle"
+    mkdir ${HOME}/.vim/bundle
 fi
 # clone or update Vundle.vim
-if [ $GIT = true ]; then
-    if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+if [ "$GIT" = true ]; then
+    if [ ! -d ${HOME}/.vim/bundle/Vundle.vim ]; then
         echo "-> cloning https://github.com/VundleVim/Vundle.vim.git"
-        git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+        git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
     else
         echo "-> updating Vundle.vim"
-        cd ~/.vim/bundle/Vundle.vim
+        cd ${HOME}/.vim/bundle/Vundle.vim
         git pull
     fi
 fi
 MYSNIPPETS="${DIR}/.vim/mysnippets"
-if [ -d ~/.vim/mysnippets ]; then
-    if [ ! `readlink -f ~/.vim/mysnippets` = $MYSNIPPETS ]; then
-        echo "-> move ~/.vim/mysnippets to ~/.vim/mysnippets_bak"
-        mv ~/.vim/mysnippets ~/.vim/mysnippets_bak
-        echo "-> link $MYSNIPPETS to ~/.vim/mysnippets"
-        ln -s $MYSNIPPETS ~/.vim/
+if [ -d ${HOME}/.vim/mysnippets ]; then
+    if [ ! `readlink -f ${HOME}/.vim/mysnippets` = $MYSNIPPETS ]; then
+        echo "-> move ${HOME}/.vim/mysnippets to ${HOME}/.vim/mysnippets_bak"
+        mv ${HOME}/.vim/mysnippets ${HOME}/.vim/mysnippets_bak
+        echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
+        ln -s $MYSNIPPETS ${HOME}/.vim/
     fi
 else
-    echo "-> link $MYSNIPPETS to ~/.vim/mysnippets"
-    ln -s $MYSNIPPETS ~/.vim/
+    echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
+    ln -s $MYSNIPPETS ${HOME}/.vim/
 fi
 
 ############################
 #  backup and link .vimrc  #
 ############################
 VIMRC="${DIR}/.vimrc"
-if [ -f ~/.vimrc ]; then
-    if [ ! `readlink -f ~/.vimrc` = $VIMRC ]; then
-        echo "-> move ~/.vimrc to ~/.vimrc_bak"
-        mv ~/.vimrc ~/.vimrc_bak
-        echo "-> link $VIMRC to ~/.vimrc"
-        ln -s $VIMRC ~/.vimrc
+if [ -f ${HOME}/.vimrc ]; then
+    if [ ! `readlink -f ${HOME}/.vimrc` = $VIMRC ]; then
+        echo "-> move ${HOME}/.vimrc to ${HOME}/.vimrc_bak"
+        mv ${HOME}/.vimrc ${HOME}/.vimrc_bak
+        echo "-> link $VIMRC to ${HOME}/.vimrc"
+        ln -s $VIMRC ${HOME}/.vimrc
     fi
 else
-    echo "-> link $VIMRC to ~/.vimrc"
-    ln -s $VIMRC ~/.vimrc
+    echo "-> link $VIMRC to ${HOME}/.vimrc"
+    ln -s $VIMRC ${HOME}/.vimrc
 fi
 
-if [ $GIT = false ]; then
+if [ "$GIT" = false ]; then
     echo "!!! git is not installed! I could not install Vundle.vim and other vim plugins for you! Please do this after installing git by running these commands:"
-    echo "git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
+    echo "git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim"
     echo "vim -E -c 'PluginInstall' -c 'qa!' 2>/dev/null"
 else
     echo "-> installing vim Plugins"
@@ -131,18 +173,18 @@ fi
 #################################
 #  backup and link tmux config  #
 #################################
-if [ `command -v tmux` ]; then
+if [ "$TMUX" = true ]; then
     TMUXRC="${DIR}/.tmux.conf"
-    if [ -f ~/.tmux.conf ]; then
-        if [ ! `readlink -f ~/.tmux.conf` = $TMUXRC ]; then
-            echo "-> move ~/.tmux.conf to ~/.tmux.conf_bak"
-            mv ~/.tmux.conf ~/.tmux.conf_bak
-            echo "-> link $TMUXRC to ~/.tmux.conf"
-            ln -s $TMUXRC ~/.tmux.conf
+    if [ -f ${HOME}/.tmux.conf ]; then
+        if [ ! `readlink -f ${HOME}/.tmux.conf` = $TMUXRC ]; then
+            echo "-> move ${HOME}/.tmux.conf to ${HOME}/.tmux.conf_bak"
+            mv ${HOME}/.tmux.conf ${HOME}/.tmux.conf_bak
+            echo "-> link $TMUXRC to ${HOME}/.tmux.conf"
+            ln -s $TMUXRC ${HOME}/.tmux.conf
         fi
     else
-        echo "-> link $TMUXRC to ~/.tmux.conf"
-        ln -s $TMUXRC ~/.tmux.conf
+        echo "-> link $TMUXRC to ${HOME}/.tmux.conf"
+        ln -s $TMUXRC ${HOME}/.tmux.conf
     fi
 
     echo "-> Please select tmux color scheme"
@@ -151,7 +193,7 @@ if [ `command -v tmux` ]; then
         if [ -z $tmuxcolor ]; then
             echo "invalid option"
         else
-            echo "source-file \"$DIR/tmux-themes/${tmuxcolor}.tmuxtheme\"" > ~/.tmux_theme
+            echo "source-file \"$DIR/tmux-themes/${tmuxcolor}.tmuxtheme\"" > ${HOME}/.tmux_theme
             break
         fi
     done
