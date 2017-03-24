@@ -40,4 +40,10 @@ else
         task sync &> /dev/null
         task pro:$ENVIRONMENT
     fi
+    if [ `command -v timew` ]; then
+        alias tw='timew'
+        alias tws='timew summary'
+        alias tww='timew summary :week'
+        alias tt='timew track'
+    fi
 fi
