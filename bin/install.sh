@@ -37,6 +37,10 @@ if [ ! `command -v tmux` ]; then
     TMUX=false
     ask_install "tmux"
 fi
+if [ ! `command -v zsh` ]; then
+    ZSH_INSTALLS=false
+    ask_install "zsh"
+fi
 
 if [ "$INSTALL" != "" ]; then
     echo "-> Installing ${INSTALL}"
@@ -51,6 +55,9 @@ if [ `command -v vim` ]; then
 fi
 if [ `command -v tmux` ]; then
     TMUX=true
+fi
+if [ `command -v zsh` ]; then
+    ZSH_INSTALLED=true
 fi
 
 #######################
@@ -68,7 +75,7 @@ do
     if [ -z $myenv ]; then
         echo "invalid option"
     else
-        echo "export ENVIRONMENT=$myenv" > ${HOME}/.bash_customvars
+        echo "export ENVIRONMENT=$myenv" > ${HOME}/.sh_customvars
         break
     fi
 done
@@ -80,11 +87,11 @@ case "$(uname -s)" in
      ;;
    Linux)
      echo 'Linux'
-     echo "$DIR/bin/screenfetch" >> ${HOME}/.bash_customvars
+     echo "$DIR/bin/screenfetch" >> ${HOME}/.sh_customvars
      ;;
    CYGWIN*|MINGW32*|MSYS*)
      echo 'MS Windows'
-     echo "$DIR/bin/screeny" >> ${HOME}/.bash_customvars
+     echo "$DIR/bin/screeny" >> ${HOME}/.sh_customvars
      ;;
    # Add here more strings to compare
    *)
@@ -109,6 +116,30 @@ else
 fi
 
 source ${HOME}/.bashrc
+
+#######################
+#  install oh-my-zsh  #
+#######################
+if [ "$ZSH_INSTALLED" = true ]; then
+    if [ `command -v curl` ]; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    elif [ `command -v wget` ]; then
+        sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+    fi
+    ZSHRC="${DIR}/.zshrc"
+    if [ -f ${HOME}/.zshrc ]; then
+        if [ ! `readlink -f ${HOME}/.zshrc` = $ZSHRC ]; then
+            echo "-> move ${HOME}/.zshrc to ${HOME}/.zshrc_bak"
+            mv ${HOME}/.zshrc ${HOME}/.zshrc_bak
+            echo "-> link $ZSHRC to ${HOME}/.zshrc"
+            ln -s $ZSHRC ${HOME}/.zshrc
+        fi
+    else
+        echo "-> link $ZSHRC to ${HOME}/.zshrc"
+        ln -s $ZSHRC ${HOME}/.zshrc
+    fi
+fi
+
 
 ########################################
 #  create and populate .vim directory  #
