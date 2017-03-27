@@ -51,7 +51,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git taskwarrior)
+plugins=(git sudo taskwarrior)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -86,8 +86,12 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR='vim'
 
-if [ `command -v tmux` ] && [ -z "$TMUX" ] && [ "$SSH_CONNECTION" != "" ]; then
-    ( tmux -2 attach-session -t ssh || tmux -2 new-session -s ssh ) && exit
+if [ `command -v tmux` ] && [ -z "$TMUX" ]; then
+    if [ "$SSH_CONNECTION" != "" ]; then
+        ( tmux -2 attach-session -t ssh || tmux -2 new-session -s ssh ) && exit
+    else
+        tmux -2 new-session && exit
+    fi
 else
     source ~/.sh_customvars
 
@@ -96,8 +100,8 @@ else
         alias ts='task pro:work'
         alias th='task pro:home'
         alias t='task pro:$ENVIRONMENT'
-        task sync &> /dev/null
-        task pro:$ENVIRONMENT
+        #task sync &> /dev/null
+        #task pro:$ENVIRONMENT
     fi
     if [ `command -v timew` ]; then
         alias tw='timew'
