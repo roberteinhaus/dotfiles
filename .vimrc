@@ -30,14 +30,15 @@ endif
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'python-mode/python-mode'
 Plugin 'tpope/vim-fugitive'
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+Plugin 'morhetz/gruvbox'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -149,8 +150,10 @@ syntax enable
 set t_Co=256
 
 try
-	let g:solarized_termcolors=256
-	colorscheme solarized
+	"let g:solarized_termcolors=256
+	"colorscheme solarized
+    colorscheme gruvbox
+    let g:gruvbox_contrast_dark="hard"
 catch
 endtry
 
@@ -276,3 +279,8 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 let g:snips_author="Robert Einhaus"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
+
+""""""""""""""
+"  Mappings  "
+""""""""""""""
+cmap w!! w !sudo tee % >/dev/null

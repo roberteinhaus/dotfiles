@@ -82,21 +82,25 @@ done
 
 echo "-> We are working on"
 case "$(uname -s)" in
-   Darwin)
-     echo 'Mac OS X'
-     ;;
-   Linux)
-     echo 'Linux'
-     echo "$DIR/bin/screenfetch" >> ${HOME}/.sh_customvars
-     ;;
-   CYGWIN*|MINGW32*|MSYS*)
-     echo 'MS Windows'
-     echo "$DIR/bin/screeny" >> ${HOME}/.sh_customvars
-     ;;
-   # Add here more strings to compare
-   *)
-     echo 'other OS' 
-     ;;
+    Darwin)
+        echo 'Mac OS X'
+        CUROS="MACOS"
+        ;;
+    Linux)
+        echo 'Linux'
+        echo "$DIR/bin/screenfetch" >> ${HOME}/.sh_customvars
+        CUROS="LINUX"
+        ;;
+    CYGWIN*|MINGW32*|MSYS*)
+        echo 'MS Windows'
+        echo "$DIR/bin/screeny" >> ${HOME}/.sh_customvars
+        CUROS="WIN"
+        ;;
+    # Add here more strings to compare
+    *)
+        echo 'other OS'
+        CUROS="OTHER"
+        ;;
 esac
 
 #############################
@@ -114,8 +118,6 @@ else
     echo "-> link $BASHRC to ${HOME}/.bashrc"
     ln -s $BASHRC ${HOME}/.bashrc
 fi
-
-source ${HOME}/.bashrc
 
 #######################
 #  install oh-my-zsh  #
@@ -140,6 +142,35 @@ if [ "$ZSH_INSTALLED" = true ]; then
     fi
 fi
 
+###############################
+#  backup and link .minttyrc  #
+###############################
+if [ "$CUROS" = "WIN" ]; then
+    MINTTYRC="${DIR}/.minttyrc"
+    if [ -f ${HOME}/.minttyrc ]; then
+        if [ ! `readlink -f ${HOME}/.minttyrc` = $MINTTYRC ]; then
+            echo "-> move ${HOME}/.minttyrc to ${HOME}/.minttyrc_bak"
+            mv ${HOME}/.minttyrc ${HOME}/.minttyrc_bak
+            echo "-> link $MINTTYRC to ${HOME}/.minttyrc"
+            ln -s $MINTTYRC ${HOME}/.minttyrc
+        fi
+    else
+        echo "-> link $MINTTYRC to ${HOME}/.minttyrc"
+        ln -s $MINTTYRC ${HOME}/.minttyrc
+    fi
+    NSSWITCH="${DIR}/etc/nsswitch.conf"
+    if [ -f /etc/nsswitch.conf ]; then
+        if [ ! `readlink -f /etc/nsswitch.conf` = $NSSWITCH ]; then
+            echo "-> move /etc/nsswitch.conf to /etc/nsswitch.conf_bak"
+            mv /etc/nsswitch.conf /etc/nsswitch.conf_bak
+            echo "-> link $NSSWITCH to /etc/nsswitch.conf"
+            ln -s $NSSWITCH /etc/nsswitch.conf
+        fi
+    else
+        echo "-> link $NSSWITCH to /etc/nsswitch.conf"
+        ln -s $NSSWITCH /etc/nsswitch.conf
+    fi
+fi
 
 ########################################
 #  create and populate .vim directory  #
