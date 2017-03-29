@@ -142,9 +142,9 @@ if [ "$ZSH_INSTALLED" = true ]; then
     fi
 fi
 
-###############################
-#  backup and link .minttyrc  #
-###############################
+###########################################################
+#  backup and link .minttyrc and copy /etc/nsswitch.conf  #
+###########################################################
 if [ "$CUROS" = "WIN" ]; then
     MINTTYRC="${DIR}/.minttyrc"
     if [ -f ${HOME}/.minttyrc ]; then
@@ -163,12 +163,12 @@ if [ "$CUROS" = "WIN" ]; then
         if [ ! `readlink -f /etc/nsswitch.conf` = $NSSWITCH ]; then
             echo "-> move /etc/nsswitch.conf to /etc/nsswitch.conf_bak"
             mv /etc/nsswitch.conf /etc/nsswitch.conf_bak
-            echo "-> link $NSSWITCH to /etc/nsswitch.conf"
-            ln -s $NSSWITCH /etc/nsswitch.conf
+            echo "->copy $NSSWITCH to /etc/nsswitch.conf"
+            cp $NSSWITCH /etc/nsswitch.conf
         fi
     else
-        echo "-> link $NSSWITCH to /etc/nsswitch.conf"
-        ln -s $NSSWITCH /etc/nsswitch.conf
+        echo "-> copy $NSSWITCH to /etc/nsswitch.conf"
+        cp $NSSWITCH /etc/nsswitch.conf
     fi
 fi
 
