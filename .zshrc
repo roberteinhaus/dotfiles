@@ -100,8 +100,6 @@ else
         alias ts='task pro:work'
         alias th='task pro:home'
         alias t='task pro:$ENVIRONMENT'
-        #task sync &> /dev/null
-        #task pro:$ENVIRONMENT
     fi
     if [ `command -v timew` ]; then
         alias tw='timew'

@@ -27,18 +27,20 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-if [ `command -v tmux` ] && [ -z "$TMUX" ] && [ "$SSH_CONNECTION" != "" ]; then
-    ( tmux -2 attach-session -t ssh || tmux -2 new-session -s ssh ) && exit
+if [ `command -v tmux` ] && [ -z "$TMUX" ]; then
+    if [ "$SSH_CONNECTION" != "" ]; then
+        ( tmux -2 attach-session -t ssh || tmux -2 new-session -s ssh ) && exit
+    else
+        tmux -2 new-session && exit
+    fi
 else
-    source ~/.bash_customvars
+    source ~/.sh_customvars
 
     if [ `command -v task` ]; then
         alias ta='task'
         alias ts='task pro:work'
         alias th='task pro:home'
         alias t='task pro:$ENVIRONMENT'
-        task sync &> /dev/null
-        task pro:$ENVIRONMENT
     fi
     if [ `command -v timew` ]; then
         alias tw='timew'
