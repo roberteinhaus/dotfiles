@@ -284,3 +284,4 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
 "  Mappings  "
 """"""""""""""
 cmap w!! w !sudo tee % >/dev/null
+nmap ü :put +<CR>

@@ -1,3 +1,19 @@
+
+source ~/.zplug/init.zsh
+
+zplug "supercrabtree/k"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$PATH
 
