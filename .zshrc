@@ -2,6 +2,8 @@
 source ~/.zplug/init.zsh
 
 zplug "supercrabtree/k"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -67,7 +69,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo taskwarrior)
+plugins=(git sudo taskwarrior z catimg)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -127,3 +129,7 @@ fi
 if [ `command -v curl` ]; then
     alias wetter='curl http://wttr.in/Wallenhorst'
 fi
+
+bindkey '^ ' autosuggest-accept
+bindkey '^M' autosuggest-execute
+bindkey '^[[3~' autosuggest-clear
