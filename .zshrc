@@ -12,7 +12,7 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load --verbose
+zplug load
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$PATH
@@ -123,4 +123,7 @@ else
         alias tww='timew summary :week'
         alias tt='timew track'
     fi
+fi
+if [ `command -v curl` ]; then
+    alias wetter='curl http://wttr.in/Wallenhorst'
 fi
