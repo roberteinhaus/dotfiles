@@ -38,8 +38,12 @@ if [ ! `command -v tmux` ]; then
     ask_install "tmux"
 fi
 if [ ! `command -v zsh` ]; then
-    ZSH_INSTALLS=false
+    ZSH_INSTALLED=false
     ask_install "zsh"
+fi
+if [ ! `command -v curl` ]; then
+    CURL_INSTALLED=false
+    ask_install "curl"
 fi
 
 if [ "$INSTALL" != "" ]; then
@@ -58,6 +62,9 @@ if [ `command -v tmux` ]; then
 fi
 if [ `command -v zsh` ]; then
     ZSH_INSTALLED=true
+fi
+if [ `command -v curl` ]; then
+    CURL_INSTALLED=true
 fi
 
 #######################
@@ -141,6 +148,19 @@ if [ "$ZSH_INSTALLED" = true ]; then
         ln -s $ZSHRC ${HOME}/.zshrc
     fi
 fi
+
+###################
+#  install zplug  #
+###################
+if [ "$ZSH_INSTALLED" = true ]; then
+    if [ `command -v curl` ]; then
+        curl -sL https https://zplug.sh/installer | zsh
+    elif [ `command -v git` ]; then
+        export ZPLUG_HOME=${HOME}/.zplug
+        git clone https://github.com/zplug/zplug $ZPLUG_HOME
+    fi
+fi
+
 
 ###########################################################
 #  backup and link .minttyrc and copy /etc/nsswitch.conf  #
