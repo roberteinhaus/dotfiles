@@ -226,6 +226,10 @@ else
     echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
     ln -s $MYSNIPPETS ${HOME}/.vim/
 fi
+if [ ! -d ${HOME}/.vim/undo ]; then
+    echo "-> creating ${HOME}/.vim/undo"
+    mkdir ${HOME}/.vim/undo
+fi
 
 ############################
 #  backup and link .vimrc  #

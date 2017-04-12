@@ -81,6 +81,8 @@ set ttimeoutlen=50
 let mapleader = ","
 let g:mapleader = ","
 
+set undofile
+set undodir=~/.vim/undodir
 
 """"""""
 "  UI  "
