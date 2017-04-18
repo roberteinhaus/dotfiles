@@ -29,6 +29,7 @@ endif
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+
 Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'altercation/vim-colors-solarized'
@@ -36,9 +37,16 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'python-mode/python-mode'
 Plugin 'tpope/vim-fugitive'
+
+Plugin 'jakedouglas/exuberant-ctags'
+Plugin 'majutsushi/tagbar'
+
+Plugin 'townk/vim-autoclose'
+
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+
 Plugin 'morhetz/gruvbox'
 
 " All of your Plugins must be added before the following line
@@ -288,3 +296,10 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
 """"""""""""""
 cmap w!! w !sudo tee % >/dev/null
 nmap ü :put +<CR>
+map <C-m> :TagbarToggle<CR>
+
+nnoremap <Up>    :resize +2<CR>
+nnoremap <Down>  :resize -2<CR>
+nnoremap <Left>  :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
+

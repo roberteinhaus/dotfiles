@@ -133,3 +133,5 @@ fi
 bindkey '^ ' autosuggest-accept
 bindkey '^M' autosuggest-execute
 bindkey '^[[3~' autosuggest-clear
+
+export PATH=$PATH:~/bin
