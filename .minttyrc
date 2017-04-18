@@ -7,8 +7,8 @@ Columns=160
 Rows=48
 Scrollbar=none
 CursorType=block
-Font=SauceCodePro NF
-FontHeight=11
+Font=DejaVuSansMonoForPowerline NF
+FontHeight=12
 
 ForegroundColour=235,219,178
 BackgroundColour=29,32,33
@@ -29,3 +29,5 @@ Cyan=104,157,106
 BoldCyan=142,192,124
 White=168,153,132
 BoldWhite=235,219,178
+FontWeight=400
+FontSmoothing=default

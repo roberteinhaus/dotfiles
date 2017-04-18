@@ -5,7 +5,6 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 if has("win32") || has("win32")
-    set guifont=DroidSansMonoPLNerd:h12
     set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
     call vundle#begin('$HOME/vimfiles/bundle/')
     if has("gui_running")
@@ -22,7 +21,6 @@ if has("win32") || has("win32")
         endif
     endif
 else
-    set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 12
     set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()
 endif
