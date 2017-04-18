@@ -3,25 +3,26 @@ echo "# This will build your new home!"
 echo ""
 
 DIR="$( cd "$( dirname "$0" )" && pwd )"
-DIR=`dirname $DIR`
 
 ##################################
 #  check for installed packages  #
 ##################################
 
 ask_install () {
-    echo "-> Do you want me to install $1?"
-    select yn in yes no
-    do
-        if [ -z $yn ]; then
-            echo "invalid option"
-        elif [ "$yn" == "yes" ]; then
-            INSTALL="$INSTALL $1"
-            break
-        elif [ "$yn" == "no" ]; then
-            break
-        fi
-    done
+    if [ `command -v apt-get` ]; then
+        echo "-> Do you want me to install $1?"
+        select yn in yes no
+        do
+            if [ -z $yn ]; then
+                echo "invalid option"
+            elif [ "$yn" == "yes" ]; then
+                INSTALL="$INSTALL $1"
+                break
+            elif [ "$yn" == "no" ]; then
+                break
+            fi
+        done
+    fi
 }
 
 INSTALL=""
@@ -44,6 +45,10 @@ fi
 if [ ! `command -v curl` ]; then
     CURL_INSTALLED=false
     ask_install "curl"
+fi
+if [ ! `command -v ctags` ]; then
+    CTAGS=false
+    ask_install "exuberant-ctags"
 fi
 
 if [ "$INSTALL" != "" ]; then
@@ -284,6 +289,11 @@ if [ "$TMUX" = true ]; then
         fi
     done
 fi
+
+########################
+#  add local binaries  #
+########################
+echo "export PATH=\$PATH:${DIR}/bin" >> ${HOME}/.sh_customvars
 
 echo ""
 echo "# Finished! Have fun!"

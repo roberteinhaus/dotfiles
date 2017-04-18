@@ -2,7 +2,7 @@
 ECHO "# This will build your new home!"
 
 SET DIR=%~dp0
-SET DIR=%DIR:~0,-5%
+::SET DIR=%DIR:~0,-5%
 
 WHERE git
 IF %ERRORLEVEL% EQU 0 (
