@@ -135,10 +135,15 @@ fi
 #  install oh-my-zsh  #
 #######################
 if [ "$ZSH_INSTALLED" = true ]; then
-    if [ `command -v curl` ]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    elif [ `command -v wget` ]; then
-        sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+    if [ `command -v git` ]; then
+        echo "-> installing ZIM"
+        git clone --recursive https://github.com/Eriner/zim.git ${ZDOTDIR:-${HOME}}/.zim
+#        setopt EXTENDED_GLOB
+#        for template_file ( ${ZDOTDIR:-${HOME}}/.zim/templates/* ); do
+#            user_file="${ZDOTDIR:-${HOME}}/.${template_file:t}"
+#            touch ${user_file}
+#            ( print -rn "$(<${template_file})$(<${user_file})" >! ${user_file} ) 2>/dev/null
+#        done
     fi
     ZSHRC="${DIR}/.zshrc"
     if [ -f ${HOME}/.zshrc ]; then
@@ -157,14 +162,14 @@ fi
 ###################
 #  install zplug  #
 ###################
-if [ "$ZSH_INSTALLED" = true ]; then
-    if [ `command -v curl` ]; then
-        curl -sL https https://zplug.sh/installer | zsh
-    elif [ `command -v git` ]; then
-        export ZPLUG_HOME=${HOME}/.zplug
-        git clone https://github.com/zplug/zplug $ZPLUG_HOME
-    fi
-fi
+#if [ "$ZSH_INSTALLED" = true ]; then
+#    if [ `command -v curl` ]; then
+#        curl -sL https https://zplug.sh/installer | zsh
+#    elif [ `command -v git` ]; then
+#        export ZPLUG_HOME=${HOME}/.zplug
+#        git clone https://github.com/zplug/zplug $ZPLUG_HOME
+#    fi
+#fi
 
 
 ###########################################################
