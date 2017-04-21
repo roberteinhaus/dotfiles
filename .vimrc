@@ -42,6 +42,7 @@ Plugin 'jakedouglas/exuberant-ctags'
 Plugin 'majutsushi/tagbar'
 
 Plugin 'townk/vim-autoclose'
+Plugin 'bronson/vim-trailing-whitespace'
 
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
@@ -49,6 +50,8 @@ Plugin 'honza/vim-snippets'
 
 Plugin 'morhetz/gruvbox'
 Plugin 'ryanoasis/vim-devicons'
+
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -103,7 +106,7 @@ set pastetoggle=<F12>
 set cursorline
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='de' 
+let $LANG='de'
 set langmenu=de
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -121,23 +124,23 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -156,7 +159,7 @@ set splitright
 "  Colors and Fonts  "
 """"""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 " Enable 256 colors palette in Gnome Terminal
 set t_Co=256
@@ -217,7 +220,7 @@ set autoindent
 set smartindent
 
 " Wrap lines
-set wrap 
+set wrap
 
 
 """""""""""""""""""""""""""
@@ -277,7 +280,7 @@ nnoremap <Space> za
 let g:pymode_rope_autoimport = 1
 let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
 let g:pymode_rope_autoimport_import_after_complete = 1
- 
+
 
 """""""""""""""
 "  Ultisnips  "
