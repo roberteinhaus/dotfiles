@@ -90,8 +90,7 @@ set ttimeoutlen=50
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = "\<Space>"
 
 set undofile
 set undodir=~/.vim/undodir
@@ -276,7 +275,7 @@ map <C-n> :NERDTreeToggle<CR>
 """"""""""""
 let g:pymode_folding = 1
 set foldlevelstart=99
-nnoremap <Space> za
+nnoremap - za
 let g:pymode_rope_autoimport = 1
 let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
 let g:pymode_rope_autoimport_import_after_complete = 1
