@@ -41,7 +41,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'jakedouglas/exuberant-ctags'
 Plugin 'majutsushi/tagbar'
 
-Plugin 'townk/vim-autoclose'
+"Plugin 'townk/vim-autoclose'
+Plugin 'raimondi/delimitmate'
 Plugin 'bronson/vim-trailing-whitespace'
 
 Plugin 'SirVer/ultisnips'

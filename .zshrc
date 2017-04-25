@@ -12,6 +12,7 @@ fi
 bindkey -v
 bindkey '\e[3~' delete-char
 bindkey '^R' history-incremental-search-backward
+KEYTIMEOUT=1
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
