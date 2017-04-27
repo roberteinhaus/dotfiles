@@ -1,0 +1,3 @@
+[submodule "opt/ranger"]
+	path = opt/ranger
+	url = https://github.com/ranger/ranger.git
