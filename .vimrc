@@ -11,6 +11,7 @@ if has("win32") || has("win32")
         " GUI is running or is about to start.
         " Maximize gvim window (for an alternative on Windows, see simalt below).
         set lines=999 columns=999
+        set guifont=DejaVuSansMonoForPowerline_NF:h11
     else
         " This is console Vim.
         if exists("+lines")
