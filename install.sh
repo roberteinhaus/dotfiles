@@ -53,7 +53,7 @@ fi
 
 if [ "$INSTALL" != "" ]; then
     echo "-> Installing ${INSTALL}"
-    sudo apt-get install ${INSTALL}    
+    sudo apt-get install ${INSTALL}
 fi
 
 if [ `command -v git` ]; then
@@ -131,9 +131,9 @@ else
     ln -s $BASHRC ${HOME}/.bashrc
 fi
 
-#######################
-#  install oh-my-zsh  #
-#######################
+###########################
+#  install zim and zshrc  #
+###########################
 if [ "$ZSH_INSTALLED" = true ]; then
     if [ `command -v git` ]; then
         echo "-> installing ZIM"
@@ -153,19 +153,6 @@ if [ "$ZSH_INSTALLED" = true ]; then
         ln -s $ZSHRC ${HOME}/.zshrc
     fi
 fi
-
-###################
-#  install zplug  #
-###################
-#if [ "$ZSH_INSTALLED" = true ]; then
-#    if [ `command -v curl` ]; then
-#        curl -sL https https://zplug.sh/installer | zsh
-#    elif [ `command -v git` ]; then
-#        export ZPLUG_HOME=${HOME}/.zplug
-#        git clone https://github.com/zplug/zplug $ZPLUG_HOME
-#    fi
-#fi
-
 
 ###########################################################
 #  backup and link .minttyrc and copy /etc/nsswitch.conf  #

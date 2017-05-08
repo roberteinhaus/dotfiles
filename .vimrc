@@ -3,6 +3,11 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
 " set the runtime path to include Vundle and initialize
 if has("win32") || has("win32")
     set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
@@ -38,6 +43,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'python-mode/python-mode'
 Plugin 'tpope/vim-fugitive'
+
+Plugin 'henrik/vim-indexed-search'
 
 Plugin 'jakedouglas/exuberant-ctags'
 Plugin 'majutsushi/tagbar'
@@ -100,7 +107,6 @@ set undodir=~/.vim/undodir
 """"""""
 "  UI  "
 """"""""
-"set number
 set relativenumber
 nmap <F9> :set invrelativenumber<CR>
 set pastetoggle=<F12>
@@ -310,4 +316,3 @@ nnoremap <Up>    :resize +2<CR>
 nnoremap <Down>  :resize -2<CR>
 nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
-
