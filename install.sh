@@ -100,15 +100,16 @@ case "$(uname -s)" in
         ;;
     Linux)
         echo 'Linux'
-        echo "$DIR/bin/screenfetch" >> ${HOME}/.sh_customvars
+        $DIR/bin/screenfetch_static > ${HOME}/.screenfetch
+        echo "cat ${HOME}/.screenfetch" >> ${HOME}/.sh_customvars
         CUROS="LINUX"
         ;;
     CYGWIN*|MINGW32*|MSYS*)
         echo 'MS Windows'
-        echo "$DIR/bin/screeny" >> ${HOME}/.sh_customvars
+        $DIR/bin/screenfetch_static > ${HOME}/.screenfetch
+        echo "cat ${HOME}/.screenfetch" >> ${HOME}/.sh_customvars
         CUROS="WIN"
         ;;
-    # Add here more strings to compare
     *)
         echo 'other OS'
         CUROS="OTHER"
