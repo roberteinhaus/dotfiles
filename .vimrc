@@ -49,9 +49,9 @@ Plugin 'henrik/vim-indexed-search'
 Plugin 'jakedouglas/exuberant-ctags'
 Plugin 'majutsushi/tagbar'
 
-"Plugin 'townk/vim-autoclose'
 Plugin 'raimondi/delimitmate'
 Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'matze/vim-move'
 
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
@@ -253,14 +253,6 @@ set laststatus=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-
 " Needed to get ALT-Key working
 let c='a'
 while c <= 'z'
@@ -316,3 +308,5 @@ nnoremap <Up>    :resize +2<CR>
 nnoremap <Down>  :resize -2<CR>
 nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
+
+vnoremap <Leader>r y<ESC>:%s/<C-r>"//g<left><left>
