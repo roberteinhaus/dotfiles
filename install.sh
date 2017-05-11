@@ -267,12 +267,13 @@ if [ "$TMUX" = true ]; then
     fi
 
     echo "-> Please select tmux color scheme"
-    select tmuxcolor in blue cyan gray green magenta orange red yellow
+    select tmuxcolor in blue cyan green magenta orange red yellow
     do
         if [ -z $tmuxcolor ]; then
             echo "invalid option"
         else
             echo "source-file \"$DIR/tmux-themes/${tmuxcolor}.tmuxtheme\"" > ${HOME}/.tmux_theme
+            echo "source-file \"$DIR/tmux-themes/gray.tmuxtheme\"" > ${HOME}/.tmux_theme_inactive
             break
         fi
     done
