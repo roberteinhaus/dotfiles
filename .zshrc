@@ -14,6 +14,7 @@ bindkey '\e[3~' delete-char
 bindkey '^R' history-incremental-search-backward
 KEYTIMEOUT=1
 
+# Use ctrl-z to get bg task to fg
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
@@ -25,6 +26,16 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
+
+# add tab completion for ssh/config
+h=()
+if [[ -r ~/.ssh/config ]]; then
+    h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+fi
+if [[ $#h -gt 0 ]]; then
+    zstyle ':completion:*:ssh:*' hosts $h
+    zstyle ':completion:*:slogin:*' hosts $h
+fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$PATH
