@@ -93,7 +93,7 @@ set autoread
 " Prevent redraw for macros
 set lazyredraw
 
-" Reduce timeout after <ESC> is recieved.
+" Reduce timeout after <ESC> is received.
 set timeout
 set ttimeoutlen=50
 
@@ -103,6 +103,17 @@ let mapleader = "\<Space>"
 
 set undofile
 set undodir=~/.vim/undodir
+
+" Spellchecking
+set spell spelllang=de_de,en
+set nospell
+" Toggle spellchecking
+nnoremap <silent> <Leader>s :setlocal spell!<CR>
+map <Leader>d ]s
+map <Leader>a [s
+" Enable spell checking for markdown files
+au BufRead *.md setlocal spell
+au BufRead *.markdown setlocal spell
 
 """"""""
 "  UI  "
