@@ -12,7 +12,7 @@ while [ "$date1" -gt `date +%s` ]; do
     sleep 0.1
     tput cup 1
     figlet -k -f big "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)        "
-    echo "ð $(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S) " > ~/.pomodoro
+    echo " $(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S) " > ~/.pomodoro
 done
 tput cup 1
 figlet -k -f big "Finished!          "
