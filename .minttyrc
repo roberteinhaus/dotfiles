@@ -8,7 +8,7 @@ Rows=48
 Scrollbar=none
 CursorType=block
 Font=DejaVuSansMonoForPowerline NF
-FontHeight=12
+FontHeight=11
 
 ForegroundColour=235,219,178
 BackgroundColour=29,32,33
