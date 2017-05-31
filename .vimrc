@@ -182,6 +182,11 @@ set tm=500
 set splitbelow
 set splitright
 
+set mouse+=a
+if &term =~ '^screen'
+    " tmux knows the extended mouse mode
+    set ttymouse=xterm2
+endif
 
 """"""""""""""""""""""
 "  Colors and Fonts  "
