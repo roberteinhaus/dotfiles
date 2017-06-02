@@ -44,6 +44,12 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'python-mode/python-mode'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-fugitive'
+Plugin 'valloric/youcompleteme'
+
+Plugin 'leafgarland/typescript-vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'burnettk/vim-angular'
 
 Plugin 'henrik/vim-indexed-search'
 
@@ -116,6 +122,10 @@ map <Leader>a [s
 au BufRead *.md setlocal spell
 au BufRead *.markdown setlocal spell
 
+set completeopt=longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 """"""""
 "  UI  "
 """"""""
@@ -173,6 +183,11 @@ set tm=500
 set splitbelow
 set splitright
 
+set mouse+=a
+if &term =~ '^screen'
+    " tmux knows the extended mouse mode
+    set ttymouse=xterm2
+endif
 
 """"""""""""""""""""""
 "  Colors and Fonts  "

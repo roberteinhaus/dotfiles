@@ -1,5 +1,5 @@
 BoldAsFont=-1
-Transparency=low
+Transparency=off
 Locale=de_DE
 Charset=UTF-8
 RightClickAction=paste
@@ -8,7 +8,7 @@ Rows=48
 Scrollbar=none
 CursorType=block
 Font=DejaVuSansMonoForPowerline NF
-FontHeight=12
+FontHeight=11
 
 ForegroundColour=235,219,178
 BackgroundColour=29,32,33
@@ -31,3 +31,4 @@ White=168,153,132
 BoldWhite=235,219,178
 FontWeight=400
 FontSmoothing=default
+OpaqueWhenFocused=no
