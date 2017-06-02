@@ -42,6 +42,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'python-mode/python-mode'
+Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-fugitive'
 
 Plugin 'henrik/vim-indexed-search'
@@ -321,3 +322,5 @@ nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
 
 vnoremap <Leader>r y<ESC>:%s/<C-r>"//g<left><left>
+
+noremap <F3> :GoDef<CR>
