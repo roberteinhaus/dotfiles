@@ -38,7 +38,7 @@ if [[ $#h -gt 0 ]]; then
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/go/bin:$PATH
+export PATH=$HOME/bin:/usr/local/go/bin:/cygdrive/c/Go/bin:$PATH
 
 if [ `command -v tmux` ] && [ -z "$TMUX" ]; then
     if [ "$SSH_CONNECTION" != "" ]; then

@@ -3,10 +3,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-augroup reload_vimrc " {
+augroup reload_vimrc
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
+augroup END
 
 " set the runtime path to include Vundle and initialize
 if has("win32") || has("win32")
@@ -64,6 +64,8 @@ Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 
+Plugin 'vimwiki/vimwiki'
+
 Plugin 'morhetz/gruvbox'
 Plugin 'ryanoasis/vim-devicons'
 
@@ -119,8 +121,11 @@ nnoremap <silent> <Leader>s :setlocal spell!<CR>
 map <Leader>d ]s
 map <Leader>a [s
 " Enable spell checking for markdown files
-au BufRead *.md setlocal spell
-au BufRead *.markdown setlocal spell
+augroup enable_spell
+    autocmd!
+    au BufRead *.md setlocal spell
+    au BufRead *.markdown setlocal spell
+augroup END
 
 set completeopt=longest,menuone
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -137,8 +142,8 @@ set cursorline
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='de'
 set langmenu=de
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+"source $VIMRUNTIME/delmenu.vim
+"source $VIMRUNTIME/menu.vim
 
 "Always show current position
 set ruler
@@ -267,7 +272,10 @@ set wrap
 "map <C-l> <C-W>l
 
 " Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup edit_position
+    autocmd!
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup END
 
 
 """""""""""""""""
@@ -292,8 +300,11 @@ endw
 """"""""""""""
 "  NERDTree  "
 """"""""""""""
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+augroup nerdtree
+    autocmd!
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+augroup END
 map <C-n> :NERDTreeToggle<CR>
 
 
@@ -323,6 +334,7 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
 
 " required if using https://github.com/bling/vim-airline
 let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled = 1
 
 """"""""""""""
 "  Mappings  "
