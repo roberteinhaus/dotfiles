@@ -90,6 +90,9 @@ filetype plugin indent on    " required
 """""""""""""
 "  General  "
 """""""""""""
+" Make global replace the default option
+set gdefault
+
 " Sets how many lines of history VIM has to remember
 set history=500
 
@@ -156,7 +159,7 @@ set backspace=2
 set whichwrap+=<,>,h,l
 
 " Ignore case when searching
-set ignorecase
+set infercase
 
 " When searching try to be smart about cases
 set smartcase
@@ -347,6 +350,9 @@ nnoremap <Up>    :resize +2<CR>
 nnoremap <Down>  :resize -2<CR>
 nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
+
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 vnoremap <Leader>r y<ESC>:%s/<C-r>"//g<left><left>
 
