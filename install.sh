@@ -239,7 +239,7 @@ if [ "$GIT" = false ]; then
     echo "vim -E -c 'PluginInstall' -c 'qa!' 2>/dev/null"
 else
     echo "-> installing vim Plugins"
-    vim -E -c 'PluginInstall' -c 'qa!' 2>/dev/null
+    vim -E -c 'PlugInstall' -c 'qa!' 2>/dev/null
 fi
 
 #################################
