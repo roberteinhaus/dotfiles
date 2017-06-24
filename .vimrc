@@ -1,7 +1,6 @@
 " Install Vundle.vim
 " $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
 augroup reload_vimrc
     autocmd!
@@ -10,8 +9,6 @@ augroup END
 
 " set the runtime path to include Vundle and initialize
 if has("win32") || has("win32")
-    set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
-    call vundle#begin('$HOME/vimfiles/bundle/')
     if has("gui_running")
         " GUI is running or is about to start.
         " Maximize gvim window (for an alternative on Windows, see simalt below).
@@ -26,65 +23,47 @@ if has("win32") || has("win32")
             set columns=100
         endif
     endif
-else
-    set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
 endif
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/bundle')
+Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'altercation/vim-colors-solarized'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'python-mode/python-mode'
+Plug 'fatih/vim-go'
+Plug 'tpope/vim-fugitive'
+Plug 'valloric/youcompleteme'
 
-Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'python-mode/python-mode'
-Plugin 'fatih/vim-go'
-Plugin 'tpope/vim-fugitive'
-Plugin 'valloric/youcompleteme'
+Plug 'leafgarland/typescript-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'burnettk/vim-angular'
 
-Plugin 'leafgarland/typescript-vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'burnettk/vim-angular'
+Plug 'henrik/vim-indexed-search'
 
-Plugin 'henrik/vim-indexed-search'
+Plug 'jakedouglas/exuberant-ctags'
+Plug 'majutsushi/tagbar'
 
-Plugin 'jakedouglas/exuberant-ctags'
-Plugin 'majutsushi/tagbar'
+Plug 'raimondi/delimitmate'
+Plug 'tpope/vim-surround'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'matze/vim-move'
 
-Plugin 'raimondi/delimitmate'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'matze/vim-move'
-
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
-Plugin 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki'
 
-Plugin 'morhetz/gruvbox'
-Plugin 'ryanoasis/vim-devicons'
+Plug 'morhetz/gruvbox'
+Plug 'ryanoasis/vim-devicons'
 
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" All of your Plugs must be added before the following line
+call plug#end()
 
 
 """""""""""""
@@ -327,9 +306,9 @@ let g:pymode_rope_autoimport_import_after_complete = 1
 """""""""""""""
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsExpandTrigger="<leader><tab>"
+let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 let g:snips_author="Robert Einhaus"

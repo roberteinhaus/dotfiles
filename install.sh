@@ -196,16 +196,9 @@ if [ ! -d ${HOME}/.vim/bundle ]; then
     echo "-> creating ${HOME}/.vim/bundle"
     mkdir ${HOME}/.vim/bundle
 fi
-# clone or update Vundle.vim
-if [ "$GIT" = true ]; then
-    if [ ! -d ${HOME}/.vim/bundle/Vundle.vim ]; then
-        echo "-> cloning https://github.com/VundleVim/Vundle.vim.git"
-        git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
-    else
-        echo "-> updating Vundle.vim"
-        cd ${HOME}/.vim/bundle/Vundle.vim
-        git pull
-    fi
+# install vim-plug
+if [ "$CURL_INSTALLED" = true ]; then
+    curl -fLo  ${HOME}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 MYSNIPPETS="${DIR}/.vim/mysnippets"
 if [ -d ${HOME}/.vim/mysnippets ]; then
