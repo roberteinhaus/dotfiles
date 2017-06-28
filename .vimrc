@@ -27,13 +27,14 @@ endif
 
 call plug#begin('~/.vim/bundle')
 Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"Plug 'altercation/vim-colors-solarized'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+
 Plug 'python-mode/python-mode'
 Plug 'fatih/vim-go'
-Plug 'tpope/vim-fugitive'
+
 Plug 'valloric/youcompleteme'
 
 Plug 'leafgarland/typescript-vim'
@@ -59,6 +60,8 @@ Plug 'vimwiki/vimwiki'
 
 Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'altercation/vim-colors-solarized'
 
 Plug 'christoomey/vim-tmux-navigator'
 
