@@ -321,6 +321,26 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 
+"""""""""""
+"  CtrlP  "
+"""""""""""
+" Setup some default ignores
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" Use the nearest .git directory as the cwd
+" This makes a lot of sense if you are working on a project that is in version
+" control. It also supports works with .svn, .hg, .bzr.
+let g:ctrlp_working_path_mode = 'r'
+
+
 """"""""""""""
 "  Mappings  "
 """"""""""""""
