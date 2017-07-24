@@ -60,6 +60,7 @@ else
         alias tw='timew'
         alias tws='timew summary'
         alias tww='timew summary :week'
+        alias twl='timew summary :lastweek'
         alias tt='timew track'
     fi
 fi
