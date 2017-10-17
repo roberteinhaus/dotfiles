@@ -42,6 +42,10 @@ if [ ! `command -v zsh` ]; then
     ZSH_INSTALLED=false
     ask_install "zsh"
 fi
+if [ ! `command -v fish` ]; then
+    FISH_INSTALLED=false
+    ask_install "fish"
+fi
 if [ ! `command -v curl` ]; then
     CURL_INSTALLED=false
     ask_install "curl"
@@ -67,6 +71,9 @@ if [ `command -v tmux` ]; then
 fi
 if [ `command -v zsh` ]; then
     ZSH_INSTALLED=true
+fi
+if [ `command -v fish` ]; then
+    FISH_INSTALLED=true
 fi
 if [ `command -v curl` ]; then
     CURL_INSTALLED=true
@@ -155,6 +162,31 @@ if [ "$ZSH_INSTALLED" = true ]; then
     fi
 fi
 
+
+#######################################
+#  install fisherman and config.fish  #
+#######################################
+if [ "$FISH_INSTALLED" = true ]; then
+    # install fisherman
+    if [ "$CURL_INSTALLED" = true ]; then
+	curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+	fish -c 'fisher z oh-my-fish/theme-bobthefish'
+    fi
+    FISHRC="${DIR}/fish/config.fish"
+    FISHCONFIG="${HOME}/.config/fish/config.fish"
+    if [ -f ${FISHCONFIG} ]; then
+        if [ ! `readlink -f ${FISHCONFIG}` = $FISHRC ]; then
+            echo "-> move ${FISHCONFIG} to ${HOME}/.fishrc_bak"
+            mv ${FISHCONFIG} ${HOME}/.fishrc_bak
+            echo "-> link $FISHRC to ${HOME}/.fishrc"
+            ln -s $FISHRC ${FISHCONFIG}
+        fi
+    else
+        echo "-> link $FISHRC to ${FISHCONFIG}"
+        ln -s $FISHRC ${FISHCONFIG}
+    fi
+fi
+
 ###########################################################
 #  backup and link .minttyrc and copy /etc/nsswitch.conf  #
 ###########################################################
@@ -176,7 +208,7 @@ if [ "$CUROS" = "WIN" ]; then
         if [ ! `readlink -f /etc/nsswitch.conf` = $NSSWITCH ]; then
             echo "-> move /etc/nsswitch.conf to /etc/nsswitch.conf_bak"
             mv /etc/nsswitch.conf /etc/nsswitch.conf_bak
-            echo "->copy $NSSWITCH to /etc/nsswitch.conf"
+            echo "-> copy $NSSWITCH to /etc/nsswitch.conf"
             cp $NSSWITCH /etc/nsswitch.conf
         fi
     else
@@ -185,63 +217,86 @@ if [ "$CUROS" = "WIN" ]; then
     fi
 fi
 
+#####################
+# install spf13 vim #
+#####################
+if [ "$VIM" = true ]; then
+    VIMRC="${DIR}/.vimrc.before.local"
+    VIMCONFIG="${HOME}/.vimrc.before.local"
+    if [ -f ${VIMCONFIG} ]; then
+        if [ ! `readlink -f ${VIMCONFIG}` = $VIMRC ]; then
+            echo "-> move ${VIMCONFIG} to ${HOME}/.vimrc.before.local_bak"
+            mv ${VIMCONFIG} ${HOME}/.vimrc.before.local_bak
+            echo "-> link $VIMRC to ${HOME}/.vimrc.before.local"
+            ln -s $VIMRC ${VIMCONFIG}
+        fi
+    else
+        echo "-> link $VIMRC to ${VIMCONFIG}"
+        ln -s $VIMRC ${VIMCONFIG}
+    fi
+    # install spf13
+    if [ "$CURL_INSTALLED" = true ]; then
+        curl http://j.mp/spf13-vim3 -L -o - | sh
+    fi
+fi
+
 ########################################
 #  create and populate .vim directory  #
 ########################################
-if [ ! -d ${HOME}/.vim ]; then
-    echo "-> creating ${HOME}/.vim"
-    mkdir ${HOME}/.vim
-fi
-if [ ! -d ${HOME}/.vim/bundle ]; then
-    echo "-> creating ${HOME}/.vim/bundle"
-    mkdir ${HOME}/.vim/bundle
-fi
-# install vim-plug
-if [ "$CURL_INSTALLED" = true ]; then
-    curl -fLo  ${HOME}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-MYSNIPPETS="${DIR}/.vim/mysnippets"
-if [ -d ${HOME}/.vim/mysnippets ]; then
-    if [ ! `readlink -f ${HOME}/.vim/mysnippets` = $MYSNIPPETS ]; then
-        echo "-> move ${HOME}/.vim/mysnippets to ${HOME}/.vim/mysnippets_bak"
-        mv ${HOME}/.vim/mysnippets ${HOME}/.vim/mysnippets_bak
-        echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
-        ln -s $MYSNIPPETS ${HOME}/.vim/
-    fi
-else
-    echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
-    ln -s $MYSNIPPETS ${HOME}/.vim/
-fi
-if [ ! -d ${HOME}/.vim/undo ]; then
-    echo "-> creating ${HOME}/.vim/undo"
-    mkdir ${HOME}/.vim/undo
-fi
+#if [ ! -d ${HOME}/.vim ]; then
+    #echo "-> creating ${HOME}/.vim"
+    #mkdir ${HOME}/.vim
+#fi
+#if [ ! -d ${HOME}/.vim/bundle ]; then
+    #echo "-> creating ${HOME}/.vim/bundle"
+    #mkdir ${HOME}/.vim/bundle
+#fi
+## install vim-plug
+#if [ "$CURL_INSTALLED" = true ]; then
+    #curl -fLo  ${HOME}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+#fi
+#MYSNIPPETS="${DIR}/.vim/mysnippets"
+#if [ -d ${HOME}/.vim/mysnippets ]; then
+    #if [ ! `readlink -f ${HOME}/.vim/mysnippets` = $MYSNIPPETS ]; then
+        #echo "-> move ${HOME}/.vim/mysnippets to ${HOME}/.vim/mysnippets_bak"
+        #mv ${HOME}/.vim/mysnippets ${HOME}/.vim/mysnippets_bak
+        #echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
+        #ln -s $MYSNIPPETS ${HOME}/.vim/
+    #fi
+#else
+    #echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
+    #ln -s $MYSNIPPETS ${HOME}/.vim/
+#fi
+#if [ ! -d ${HOME}/.vim/undo ]; then
+    #echo "-> creating ${HOME}/.vim/undo"
+    #mkdir ${HOME}/.vim/undo
+#fi
 
 ############################
 #  backup and link .vimrc  #
 ############################
-VIMRC="${DIR}/.vimrc"
-if [ -f ${HOME}/.vimrc ]; then
-    if [ ! `readlink -f ${HOME}/.vimrc` = $VIMRC ]; then
-        echo "-> move ${HOME}/.vimrc to ${HOME}/.vimrc_bak"
-        mv ${HOME}/.vimrc ${HOME}/.vimrc_bak
-        echo "-> link $VIMRC to ${HOME}/.vimrc"
-        ln -s $VIMRC ${HOME}/.vimrc
-    fi
-else
-    echo "-> link $VIMRC to ${HOME}/.vimrc"
-    ln -s $VIMRC ${HOME}/.vimrc
-fi
-
-if [ "$GIT" = false ]; then
-    echo "!!! git is not installed! I could not install Vundle.vim and other vim plugins for you! Please do this after installing git by running these commands:"
-    echo "git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim"
-    echo "vim -E -c 'PluginInstall' -c 'qa!' 2>/dev/null"
-else
-    echo "-> installing vim Plugins"
-    vim -E -c 'PlugInstall' -c 'qa!' 2>/dev/null
-fi
-
+#VIMRC="${DIR}/.vimrc"
+#if [ -f ${HOME}/.vimrc ]; then
+    #if [ ! `readlink -f ${HOME}/.vimrc` = $VIMRC ]; then
+        #echo "-> move ${HOME}/.vimrc to ${HOME}/.vimrc_bak"
+        #mv ${HOME}/.vimrc ${HOME}/.vimrc_bak
+        #echo "-> link $VIMRC to ${HOME}/.vimrc"
+        #ln -s $VIMRC ${HOME}/.vimrc
+    #fi
+#else
+    #echo "-> link $VIMRC to ${HOME}/.vimrc"
+    #ln -s $VIMRC ${HOME}/.vimrc
+#fi
+#
+#if [ "$GIT" = false ]; then
+    #echo "!!! git is not installed! I could not install Vundle.vim and other vim plugins for you! Please do this after installing git by running these commands:"
+    #echo "git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim"
+    #echo "vim -E -c 'PluginInstall' -c 'qa!' 2>/dev/null"
+#else
+    #echo "-> installing vim Plugins"
+    #vim -E -c 'PlugInstall' -c 'qa!' 2>/dev/null
+#fi
+#
 #################################
 #  backup and link tmux config  #
 #################################

@@ -17,4 +17,4 @@ REM powershell -Command "Invoke-WebRequest https://cygwin.com/setup-x86_64.exe -
 --local-package-dir "%USERPROFILE%\cygwin\cygwin-packages" ^
 --verbose ^
 --prune-install ^
---packages openssh,git,vim,zsh,tmux,curl
+--packages openssh,git,vim,fish,tmux,curl
