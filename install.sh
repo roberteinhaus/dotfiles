@@ -172,6 +172,18 @@ if [ "$FISH_INSTALLED" = true ]; then
 	curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 	fish -c 'fisher z oh-my-fish/theme-bobthefish'
     fi
+    if [ ! -d ${HOME}/.config ]; then
+        echo "-> creating ${HOME}/.config"
+        mkdir ${HOME}/.config
+    fi
+    if [ ! -d ${HOME}/.config/fish ]; then
+        echo "-> creating ${HOME}/.config/fish"
+        mkdir ${HOME}/.config/fish
+    fi
+    if [ ! -d ${HOME}/.config/fish/functions ]; then
+        echo "-> creating ${HOME}/.config/fish/functions"
+        mkdir ${HOME}/.config/fish/functions
+    fi
     FISHRC="${DIR}/fish/config.fish"
     FISHCONFIG="${HOME}/.config/fish/config.fish"
     if [ -f ${FISHCONFIG} ]; then
@@ -184,6 +196,19 @@ if [ "$FISH_INSTALLED" = true ]; then
     else
         echo "-> link $FISHRC to ${FISHCONFIG}"
         ln -s $FISHRC ${FISHCONFIG}
+    fi
+    FISHKEYS="${DIR}/fish/functions/fish_user_key_bindings.fish"
+    FISHKEYSCONFIG="${HOME}/.config/fish/functions/fish_user_key_bindings.fish"
+    if [ -f ${FISHKEYSCONFIG} ]; then
+        if [ ! `readlink -f ${FISHKEYSCONFIG}` = $FISHKEYS ]; then
+            echo "-> move ${FISHKEYSCONFIG} to ${HOME}/.fishrc_bak"
+            mv ${FISHKEYSCONFIG} ${HOME}/.fishrc_bak
+            echo "-> link $FISHKEYS to ${HOME}/.fishrc"
+            ln -s $FISHKEYS ${FISHKEYSCONFIG}
+        fi
+    else
+        echo "-> link $FISHKEYS to ${FISHKEYSCONFIG}"
+        ln -s $FISHKEYS ${FISHKEYSCONFIG}
     fi
 fi
 
