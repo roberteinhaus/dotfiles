@@ -94,7 +94,7 @@ do
     if [ -z $myenv ]; then
         echo "invalid option"
     else
-        echo "export ENVIRONMENT=$myenv" > ${HOME}/.sh_customvars
+        #echo "export ENVIRONMENT=$myenv" > ${HOME}/.sh_customvars
         break
     fi
 done
@@ -108,13 +108,13 @@ case "$(uname -s)" in
     Linux)
         echo 'Linux'
         $DIR/bin/screenfetch_static > ${HOME}/.screenfetch
-        echo "cat ${HOME}/.screenfetch" >> ${HOME}/.sh_customvars
+        #echo "cat ${HOME}/.screenfetch" >> ${HOME}/.sh_customvars
         CUROS="LINUX"
         ;;
     CYGWIN*|MINGW32*|MSYS*)
         echo 'MS Windows'
         $DIR/bin/screenfetch_static > ${HOME}/.screenfetch
-        echo "cat ${HOME}/.screenfetch" >> ${HOME}/.sh_customvars
+        #echo "cat ${HOME}/.screenfetch" >> ${HOME}/.sh_customvars
         CUROS="WIN"
         ;;
     *)
@@ -355,7 +355,7 @@ fi
 ########################
 #  add local binaries  #
 ########################
-echo "export PATH=\$PATH:${DIR}/bin" >> ${HOME}/.sh_customvars
+#echo "export PATH=\$PATH:${DIR}/bin" >> ${HOME}/.sh_customvars
 
 echo ""
 echo "# Finished! Have fun!"
