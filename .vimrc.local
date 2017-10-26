@@ -1,0 +1,3 @@
+map <F3> :GoDef<CR>
+map <F5> :GoRun<CR>
+map <F6> :GoTest<CR>

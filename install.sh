@@ -140,13 +140,13 @@ else
 fi
 
 ###########################
-#  install zim and zshrc  #
+#  install omz zshrc  #
 ###########################
 if [ "$ZSH_INSTALLED" = true ]; then
     if [ `command -v git` ]; then
-        echo "-> installing ZIM"
-        git clone --recursive https://github.com/Eriner/zim.git ${ZDOTDIR:-${HOME}}/.zim
-        zsh ${DIR}/install_zim.sh
+        echo "-> installing OMZ"
+        git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh --depth 1
+        git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
     fi
     ZSHRC="${DIR}/.zshrc"
     if [ -f ${HOME}/.zshrc ]; then
