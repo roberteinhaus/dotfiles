@@ -145,8 +145,9 @@ fi
 if [ "$ZSH_INSTALLED" = true ]; then
     if [ `command -v git` ]; then
         echo "-> installing OMZ"
-        git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh --depth 1
-        git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
+        git clone https://github.com/robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh --depth 1
+        git clone https://github.com/bhilburn/powerlevel9k.git ${HOME}/.oh-my-zsh/custom/themes/powerlevel9k
+	git clone https://github.com/zsh-users/zsh-autosuggestions.git ${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     fi
     ZSHRC="${DIR}/.zshrc"
     if [ -f ${HOME}/.zshrc ]; then
