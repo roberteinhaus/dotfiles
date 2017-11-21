@@ -34,9 +34,11 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'python-mode/python-mode'
 Plug 'fatih/vim-go'
-
-Plug 'valloric/youcompleteme'
 Plug 'ternjs/tern_for_vim'
+
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 Plug 'Quramy/tsuquyomi'
 Plug 'leafgarland/typescript-vim'

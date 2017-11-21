@@ -257,83 +257,83 @@ fi
 #####################
 # install spf13 vim #
 #####################
-if [ "$VIM" = true ]; then
-    VIMRC="${DIR}/.vimrc.before.local"
-    VIMCONFIG="${HOME}/.vimrc.before.local"
-    if [ -f ${VIMCONFIG} ]; then
-        if [ ! `readlink -f ${VIMCONFIG}` = $VIMRC ]; then
-            echo "-> move ${VIMCONFIG} to ${HOME}/.vimrc.before.local_bak"
-            mv ${VIMCONFIG} ${HOME}/.vimrc.before.local_bak
-            echo "-> link $VIMRC to ${HOME}/.vimrc.before.local"
-            ln -s $VIMRC ${VIMCONFIG}
-        fi
-    else
-        echo "-> link $VIMRC to ${VIMCONFIG}"
-        ln -s $VIMRC ${VIMCONFIG}
-    fi
-    # install spf13
-    if [ "$CURL_INSTALLED" = true ]; then
-        curl http://j.mp/spf13-vim3 -L -o - | sh
-    fi
-fi
+#if [ "$VIM" = true ]; then
+#    VIMRC="${DIR}/.vimrc.before.local"
+#    VIMCONFIG="${HOME}/.vimrc.before.local"
+#    if [ -f ${VIMCONFIG} ]; then
+#        if [ ! `readlink -f ${VIMCONFIG}` = $VIMRC ]; then
+#            echo "-> move ${VIMCONFIG} to ${HOME}/.vimrc.before.local_bak"
+#            mv ${VIMCONFIG} ${HOME}/.vimrc.before.local_bak
+#            echo "-> link $VIMRC to ${HOME}/.vimrc.before.local"
+#            ln -s $VIMRC ${VIMCONFIG}
+#        fi
+#    else
+#        echo "-> link $VIMRC to ${VIMCONFIG}"
+#        ln -s $VIMRC ${VIMCONFIG}
+#    fi
+#    # install spf13
+#    if [ "$CURL_INSTALLED" = true ]; then
+#        curl http://j.mp/spf13-vim3 -L -o - | sh
+#    fi
+#fi
 
 ########################################
 #  create and populate .vim directory  #
 ########################################
-#if [ ! -d ${HOME}/.vim ]; then
-    #echo "-> creating ${HOME}/.vim"
-    #mkdir ${HOME}/.vim
-#fi
-#if [ ! -d ${HOME}/.vim/bundle ]; then
-    #echo "-> creating ${HOME}/.vim/bundle"
-    #mkdir ${HOME}/.vim/bundle
-#fi
-## install vim-plug
-#if [ "$CURL_INSTALLED" = true ]; then
-    #curl -fLo  ${HOME}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-#fi
-#MYSNIPPETS="${DIR}/.vim/mysnippets"
-#if [ -d ${HOME}/.vim/mysnippets ]; then
-    #if [ ! `readlink -f ${HOME}/.vim/mysnippets` = $MYSNIPPETS ]; then
-        #echo "-> move ${HOME}/.vim/mysnippets to ${HOME}/.vim/mysnippets_bak"
-        #mv ${HOME}/.vim/mysnippets ${HOME}/.vim/mysnippets_bak
-        #echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
-        #ln -s $MYSNIPPETS ${HOME}/.vim/
-    #fi
-#else
-    #echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
-    #ln -s $MYSNIPPETS ${HOME}/.vim/
-#fi
-#if [ ! -d ${HOME}/.vim/undo ]; then
-    #echo "-> creating ${HOME}/.vim/undo"
-    #mkdir ${HOME}/.vim/undo
-#fi
+if [ ! -d ${HOME}/.vim ]; then
+    echo "-> creating ${HOME}/.vim"
+    mkdir ${HOME}/.vim
+fi
+if [ ! -d ${HOME}/.vim/bundle ]; then
+    echo "-> creating ${HOME}/.vim/bundle"
+    mkdir ${HOME}/.vim/bundle
+fi
+# install vim-plug
+if [ "$CURL_INSTALLED" = true ]; then
+    curl -fLo  ${HOME}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+MYSNIPPETS="${DIR}/.vim/mysnippets"
+if [ -d ${HOME}/.vim/mysnippets ]; then
+    if [ ! `readlink -f ${HOME}/.vim/mysnippets` = $MYSNIPPETS ]; then
+        echo "-> move ${HOME}/.vim/mysnippets to ${HOME}/.vim/mysnippets_bak"
+        mv ${HOME}/.vim/mysnippets ${HOME}/.vim/mysnippets_bak
+        echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
+        ln -s $MYSNIPPETS ${HOME}/.vim/
+    fi
+else
+    echo "-> link $MYSNIPPETS to ${HOME}/.vim/mysnippets"
+    ln -s $MYSNIPPETS ${HOME}/.vim/
+fi
+if [ ! -d ${HOME}/.vim/undo ]; then
+    echo "-> creating ${HOME}/.vim/undo"
+    mkdir ${HOME}/.vim/undo
+fi
 
 ############################
 #  backup and link .vimrc  #
 ############################
-#VIMRC="${DIR}/.vimrc"
-#if [ -f ${HOME}/.vimrc ]; then
-    #if [ ! `readlink -f ${HOME}/.vimrc` = $VIMRC ]; then
-        #echo "-> move ${HOME}/.vimrc to ${HOME}/.vimrc_bak"
-        #mv ${HOME}/.vimrc ${HOME}/.vimrc_bak
-        #echo "-> link $VIMRC to ${HOME}/.vimrc"
-        #ln -s $VIMRC ${HOME}/.vimrc
-    #fi
-#else
-    #echo "-> link $VIMRC to ${HOME}/.vimrc"
-    #ln -s $VIMRC ${HOME}/.vimrc
-#fi
-#
-#if [ "$GIT" = false ]; then
-    #echo "!!! git is not installed! I could not install Vundle.vim and other vim plugins for you! Please do this after installing git by running these commands:"
-    #echo "git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim"
-    #echo "vim -E -c 'PluginInstall' -c 'qa!' 2>/dev/null"
-#else
-    #echo "-> installing vim Plugins"
-    #vim -E -c 'PlugInstall' -c 'qa!' 2>/dev/null
-#fi
-#
+VIMRC="${DIR}/.vimrc"
+if [ -f ${HOME}/.vimrc ]; then
+    if [ ! `readlink -f ${HOME}/.vimrc` = $VIMRC ]; then
+        echo "-> move ${HOME}/.vimrc to ${HOME}/.vimrc_bak"
+        mv ${HOME}/.vimrc ${HOME}/.vimrc_bak
+        echo "-> link $VIMRC to ${HOME}/.vimrc"
+        ln -s $VIMRC ${HOME}/.vimrc
+    fi
+else
+    echo "-> link $VIMRC to ${HOME}/.vimrc"
+    ln -s $VIMRC ${HOME}/.vimrc
+fi
+
+if [ "$GIT" = false ]; then
+    echo "!!! git is not installed! I could not install Vundle.vim and other vim plugins for you! Please do this after installing git by running these commands:"
+    echo "git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim"
+    echo "vim -E -c 'PluginInstall' -c 'qa!' 2>/dev/null"
+else
+    echo "-> installing vim Plugins"
+    vim -E -c 'PlugInstall' -c 'qa!' 2>/dev/null
+fi
+
 #################################
 #  backup and link tmux config  #
 #################################
