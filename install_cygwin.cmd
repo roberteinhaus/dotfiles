@@ -7,7 +7,7 @@ REM Powershell 3
 REM powershell -Command "Invoke-WebRequest https://cygwin.com/setup-x86_64.exe -OutFile setup-x86_64.exe"
 
 "%USERPROFILE%\cygwin\setup-x86_64.exe" ^
---no-admin
+--no-admin ^
 --site ftp://ftp-stud.hs-esslingen.de/pub/Mirrors/sources.redhat.com/cygwin/ ^
 --no-shortcuts ^
 --no-desktop ^
@@ -17,4 +17,4 @@ REM powershell -Command "Invoke-WebRequest https://cygwin.com/setup-x86_64.exe -
 --local-package-dir "%USERPROFILE%\cygwin\cygwin-packages" ^
 --verbose ^
 --prune-install ^
---packages openssh,git,vim,fish,tmux,curl
+--packages openssh,git,vim,zsh,tmux,curl
