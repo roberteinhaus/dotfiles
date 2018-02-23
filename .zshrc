@@ -38,7 +38,7 @@ if [[ $#h -gt 0 ]]; then
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin/vim/bin:$HOME/bin:/usr/local/go/bin:/cygdrive/c/Go/bin:$PATH
+export PATH=$HOME/bin/ctags/bin:$HOME/bin/vim/bin:$HOME/bin:/usr/local/go/bin:/cygdrive/c/Go/bin:$PATH
 alias vi='vim'
 
 if [ `command -v tmux` ] && [ -z "$TMUX" ]; then
