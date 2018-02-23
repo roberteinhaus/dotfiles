@@ -3,7 +3,10 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-export PATH=$PATH:~/bin
+export PATH=$HOME/bin/vim/bin:$HOME/bin:/home/linuxbrew/.linuxbrew/bin:/usr/lib/go-1.9/bin:/usr/local/go/bin:/cygdrive/c/Go/bin:$PATH
+
+export EDITOR='vim'
+alias vi='vim'
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -46,6 +49,10 @@ else
         alias tw='timew'
         alias tws='timew summary'
         alias tww='timew summary :week'
+        alias twl='timew summary :lastweek'
         alias tt='timew track'
     fi
+fi
+if [ `command -v curl` ]; then
+    alias wetter='curl -s http://wttr.in/Wallenhorst\?lang\=de | grep -vE "(New|Follow|Neue|Folgen)"'
 fi

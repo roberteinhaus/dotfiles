@@ -34,9 +34,13 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'python-mode/python-mode'
 Plug 'fatih/vim-go'
+Plug 'ternjs/tern_for_vim'
 
-Plug 'valloric/youcompleteme'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
+Plug 'Quramy/tsuquyomi'
 Plug 'leafgarland/typescript-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -320,6 +324,68 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
 " required if using https://github.com/bling/vim-airline
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
+
+"""""""""""""""""""
+"  YouCompleteMe  "
+"""""""""""""""""""
+" omnifuncs
+augroup omnifuncs
+    autocmd!
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+
+" tern
+if exists('g:plugs["tern_for_vim"]')
+    let g:tern_show_argument_hints = 'on_hold'
+    let g:tern_show_signature_in_pum = 1
+    autocmd FileType javascript setlocal omnifunc=tern#Complete
+endif
+
+let g:tsuquyomi_use_local_typescript = 0
+let g:tsuquyomi_use_dev_node_module = 0
+
+if !exists("g:ycm_semantic_triggers")
+    let g:ycm_semantic_triggers = {}
+endif
+
+let g:ycm_semantic_triggers =  {
+            \   'c' : ['->', '.'],
+            \   'objc' : ['->', '.'],
+            \   'ocaml' : ['.', '#'],
+            \   'cpp,objcpp' : ['->', '.', '::'],
+            \   'perl' : ['->'],
+            \   'php' : ['->', '::', '"', "'", 'use ', 'namespace ', '\'],
+            \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+            \   'html': ['<', '"', '</', ' '],
+            \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
+            \   'ruby' : ['.', '::'],
+            \   'lua' : ['.', ':'],
+            \   'erlang' : [':'],
+            \   'haskell' : ['.', 're!.']
+            \ }
+
+"""""""""""
+"  CtrlP  "
+"""""""""""
+" Setup some default ignores
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" Use the nearest .git directory as the cwd
+" This makes a lot of sense if you are working on a project that is in version
+" control. It also supports works with .svn, .hg, .bzr.
+let g:ctrlp_working_path_mode = 'r'
+
 
 """"""""""""""
 "  Mappings  "

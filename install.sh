@@ -42,6 +42,10 @@ if [ ! `command -v zsh` ]; then
     ZSH_INSTALLED=false
     ask_install "zsh"
 fi
+if [ ! `command -v fish` ]; then
+    FISH_INSTALLED=false
+    ask_install "fish"
+fi
 if [ ! `command -v curl` ]; then
     CURL_INSTALLED=false
     ask_install "curl"
@@ -67,6 +71,9 @@ if [ `command -v tmux` ]; then
 fi
 if [ `command -v zsh` ]; then
     ZSH_INSTALLED=true
+fi
+if [ `command -v fish` ]; then
+    FISH_INSTALLED=true
 fi
 if [ `command -v curl` ]; then
     CURL_INSTALLED=true
@@ -141,6 +148,18 @@ if [ "$ZSH_INSTALLED" = true ]; then
         git clone --recursive https://github.com/Eriner/zim.git ${ZDOTDIR:-${HOME}}/.zim
         zsh ${DIR}/install_zim.sh
     fi
+    ZIMRC="${DIR}/.zimrc"
+    if [ -f ${HOME}/.zimrc ]; then
+        if [ ! `readlink -f ${HOME}/.zimrc` = $ZIMRC ]; then
+            echo "-> move ${HOME}/.zimrc to ${HOME}/.zimrc_bak"
+            mv ${HOME}/.zimrc ${HOME}/.zimrc_bak
+            echo "-> link $ZIMRC to ${HOME}/.zimrc"
+            ln -s $ZIMRC ${HOME}/.zimrc
+        fi
+    else
+        echo "-> link $ZIMRC to ${HOME}/.zimrc"
+        ln -s $ZIMRC ${HOME}/.zimrc
+    fi
     ZSHRC="${DIR}/.zshrc"
     if [ -f ${HOME}/.zshrc ]; then
         if [ ! `readlink -f ${HOME}/.zshrc` = $ZSHRC ]; then
@@ -152,6 +171,56 @@ if [ "$ZSH_INSTALLED" = true ]; then
     else
         echo "-> link $ZSHRC to ${HOME}/.zshrc"
         ln -s $ZSHRC ${HOME}/.zshrc
+    fi
+fi
+
+
+#######################################
+#  install fisherman and config.fish  #
+#######################################
+if [ "$FISH_INSTALLED" = true ]; then
+    # install fisherman
+    if [ "$CURL_INSTALLED" = true ]; then
+	curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+	fish -c 'fisher z oh-my-fish/theme-bobthefish'
+    fi
+    if [ ! -d ${HOME}/.config ]; then
+        echo "-> creating ${HOME}/.config"
+        mkdir ${HOME}/.config
+    fi
+    if [ ! -d ${HOME}/.config/fish ]; then
+        echo "-> creating ${HOME}/.config/fish"
+        mkdir ${HOME}/.config/fish
+    fi
+    if [ ! -d ${HOME}/.config/fish/functions ]; then
+        echo "-> creating ${HOME}/.config/fish/functions"
+        mkdir ${HOME}/.config/fish/functions
+    fi
+    FISHRC="${DIR}/fish/config.fish"
+    FISHCONFIG="${HOME}/.config/fish/config.fish"
+    if [ -f ${FISHCONFIG} ]; then
+        if [ ! `readlink -f ${FISHCONFIG}` = $FISHRC ]; then
+            echo "-> move ${FISHCONFIG} to ${HOME}/.fishrc_bak"
+            mv ${FISHCONFIG} ${HOME}/.fishrc_bak
+            echo "-> link $FISHRC to ${HOME}/.fishrc"
+            ln -s $FISHRC ${FISHCONFIG}
+        fi
+    else
+        echo "-> link $FISHRC to ${FISHCONFIG}"
+        ln -s $FISHRC ${FISHCONFIG}
+    fi
+    FISHKEYS="${DIR}/fish/functions/fish_user_key_bindings.fish"
+    FISHKEYSCONFIG="${HOME}/.config/fish/functions/fish_user_key_bindings.fish"
+    if [ -f ${FISHKEYSCONFIG} ]; then
+        if [ ! `readlink -f ${FISHKEYSCONFIG}` = $FISHKEYS ]; then
+            echo "-> move ${FISHKEYSCONFIG} to ${HOME}/.fishrc_bak"
+            mv ${FISHKEYSCONFIG} ${HOME}/.fishrc_bak
+            echo "-> link $FISHKEYS to ${HOME}/.fishrc"
+            ln -s $FISHKEYS ${FISHKEYSCONFIG}
+        fi
+    else
+        echo "-> link $FISHKEYS to ${FISHKEYSCONFIG}"
+        ln -s $FISHKEYS ${FISHKEYSCONFIG}
     fi
 fi
 
@@ -176,7 +245,7 @@ if [ "$CUROS" = "WIN" ]; then
         if [ ! `readlink -f /etc/nsswitch.conf` = $NSSWITCH ]; then
             echo "-> move /etc/nsswitch.conf to /etc/nsswitch.conf_bak"
             mv /etc/nsswitch.conf /etc/nsswitch.conf_bak
-            echo "->copy $NSSWITCH to /etc/nsswitch.conf"
+            echo "-> copy $NSSWITCH to /etc/nsswitch.conf"
             cp $NSSWITCH /etc/nsswitch.conf
         fi
     else
@@ -184,6 +253,29 @@ if [ "$CUROS" = "WIN" ]; then
         cp $NSSWITCH /etc/nsswitch.conf
     fi
 fi
+
+#####################
+# install spf13 vim #
+#####################
+#if [ "$VIM" = true ]; then
+#    VIMRC="${DIR}/.vimrc.before.local"
+#    VIMCONFIG="${HOME}/.vimrc.before.local"
+#    if [ -f ${VIMCONFIG} ]; then
+#        if [ ! `readlink -f ${VIMCONFIG}` = $VIMRC ]; then
+#            echo "-> move ${VIMCONFIG} to ${HOME}/.vimrc.before.local_bak"
+#            mv ${VIMCONFIG} ${HOME}/.vimrc.before.local_bak
+#            echo "-> link $VIMRC to ${HOME}/.vimrc.before.local"
+#            ln -s $VIMRC ${VIMCONFIG}
+#        fi
+#    else
+#        echo "-> link $VIMRC to ${VIMCONFIG}"
+#        ln -s $VIMRC ${VIMCONFIG}
+#    fi
+#    # install spf13
+#    if [ "$CURL_INSTALLED" = true ]; then
+#        curl http://j.mp/spf13-vim3 -L -o - | sh
+#    fi
+#fi
 
 ########################################
 #  create and populate .vim directory  #
@@ -275,7 +367,7 @@ fi
 ########################
 #  add local binaries  #
 ########################
-echo "export PATH=\$PATH:${DIR}/bin" >> ${HOME}/.sh_customvars
+#echo "export PATH=\$PATH:${DIR}/bin" >> ${HOME}/.sh_customvars
 
 echo ""
 echo "# Finished! Have fun!"

@@ -12,6 +12,7 @@ fi
 bindkey -v
 bindkey '\e[3~' delete-char
 bindkey '^R' history-incremental-search-backward
+bindkey '^f' autosuggest-accept
 KEYTIMEOUT=1
 
 # Use ctrl-z to get bg task to fg
@@ -38,7 +39,7 @@ if [[ $#h -gt 0 ]]; then
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin/ctags/bin:$HOME/bin/vim/bin:$HOME/bin:/usr/local/go/bin:/cygdrive/c/Go/bin:$PATH
+export PATH=/home/linuxbrew/.linuxbrew/bin:$HOME/bin:$HOME/bin/ctags/bin:$HOME/bin/vim/bin:/usr/lib/go-1.9/bin:/usr/local/go/bin:/cygdrive/c/Go/bin:$PATH
 alias vi='vim'
 
 if [ `command -v tmux` ] && [ -z "$TMUX" ]; then
@@ -60,9 +61,10 @@ else
         alias tw='timew'
         alias tws='timew summary'
         alias tww='timew summary :week'
+        alias twl='timew summary :lastweek'
         alias tt='timew track'
     fi
 fi
 if [ `command -v curl` ]; then
-    alias wetter='curl -s http://wttr.in/Wallenhorst\?lang\=de | grep -vE "(New|Follow)"'
+    alias wetter='curl -s http://wttr.in/Wallenhorst\?lang\=de | grep -vE "(New|Follow|Neue|Folgen)"'
 fi
