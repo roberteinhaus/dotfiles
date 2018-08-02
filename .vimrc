@@ -303,9 +303,10 @@ map <C-n> :NERDTreeToggle<CR>
 let g:pymode_folding = 1
 set foldlevelstart=99
 nnoremap - za
-let g:pymode_rope_autoimport = 1
+let g:pymode_rope_autoimport = 0
 let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
-let g:pymode_rope_autoimport_import_after_complete = 1
+let g:pymode_rope_autoimport_import_after_complete = 0
+let g:pymode_rope = 0
 
 
 """""""""""""""

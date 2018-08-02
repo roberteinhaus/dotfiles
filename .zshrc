@@ -38,8 +38,11 @@ if [[ $#h -gt 0 ]]; then
     zstyle ':completion:*:slogin:*' hosts $h
 fi
 
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
+
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin/vim/bin:$HOME/bin:/home/linuxbrew/.linuxbrew/bin:/usr/lib/go-1.9/bin:/usr/local/go/bin:/cygdrive/c/Go/bin:$PATH
+export PATH=$HOME/bin/vim/bin:$HOME/bin:/home/linuxbrew/.linuxbrew/bin:/usr/lib/go-1.9/bin:/usr/local/go/bin:/cygdrive/c/Go/bin:$HOME/.local/bin:$PATH
 alias vi='vim'
 
 if [ `command -v tmux` ] && [ -z "$TMUX" ]; then
