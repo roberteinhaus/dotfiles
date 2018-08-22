@@ -379,6 +379,22 @@ fi
 ####################
 if [ "$VIM" = true ] && [ "$CURL_INSTALLED" = true ]; then
     curl -sLf https://spacevim.org/install.sh | bash
+    if [ ! -d ${HOME}/.SpaceVim.d ]; then
+        echo "-> creating ${HOME}/.SpaceVim.d"
+        mkdir ${HOME}/.SpaceVim.d
+    fi
+    SPACEVIMD="${DIR}/.SpaceVim.d/init.toml"
+    if [ -f ${HOME}/.SpaceVim.d/init.toml ]; then
+        if [ ! `readlink -f ${HOME}/.SpaceVim.d/init.toml` = $SPACEVIMD ]; then
+            echo "-> move ${HOME}/.SpaceVim.d/init.toml to ${HOME}/.SpaceVim.d/init.toml_bak"
+            mv ${HOME}/.SpaceVim.d/init.toml ${HOME}/.SpaceVim.d/init.toml_bak
+            echo "-> link $SPACEVIMD to ${HOME}/.SpaceVim.d/init.toml"
+            ln -s $SPACEVIMD ${HOME}/.SpaceVim.d/init.toml
+        fi
+    else
+        echo "-> link $SPACEVIMD to ${HOME}/.SpaceVim.d/init.toml"
+        ln -s $SPACEVIMD ${HOME}/.SpaceVim.d/init.toml
+    fi
 fi
 
 #################################
