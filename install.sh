@@ -25,6 +25,21 @@ ask_install () {
     fi
 }
 
+ask_noinstall() {
+    echo "-> Do you want me to install $1?"
+    select yn in yes no
+    do
+        if [ -z $yn ]; then
+            echo "invalid option"
+        elif [ "$yn" == "yes" ]; then
+            ${1}=true
+            break
+        elif [ "$yn" == "no" ]; then
+            break
+        fi
+    done
+}
+
 INSTALL=""
 if [ ! `command -v git` ]; then
     GIT=false
@@ -37,6 +52,10 @@ fi
 if [ ! `command -v tmux` ]; then
     TMUX=false
     ask_install "tmux"
+fi
+if [ ! `command -v bash` ]; then
+    BASH_INSTALLED=false
+    ask_install "bash"
 fi
 if [ ! `command -v zsh` ]; then
     ZSH_INSTALLED=false
@@ -54,6 +73,10 @@ if [ ! `command -v ctags` ]; then
     CTAGS=false
     ask_install "exuberant-ctags"
 fi
+if [ ! `command -v hstr` ]; then
+    HSTR=false
+    ask_noinstall "HSTR"
+fi
 
 if [ "$INSTALL" != "" ]; then
     echo "-> Installing ${INSTALL}"
@@ -68,6 +91,9 @@ if [ `command -v vim` ]; then
 fi
 if [ `command -v tmux` ]; then
     TMUX=true
+fi
+if [ `command -v bash` ]; then
+    BASH_INSTALLED=true
 fi
 if [ `command -v zsh` ]; then
     ZSH_INSTALLED=true
@@ -126,17 +152,31 @@ esac
 #############################
 #  backup and link .bashrc  #
 #############################
-BASHRC="${DIR}/.bashrc"
-if [ -f ${HOME}/.bashrc ]; then
-    if [ ! `readlink -f ${HOME}/.bashrc` = $BASHRC ]; then
-        echo "-> move ${HOME}/.bashrc to ${HOME}/.bashrc_bak"
-        mv ${HOME}/.bashrc ${HOME}/.bashrc_bak
-        echo "-> link $BASHRC to ${HOME}/.bashrc"
-        ln -s $BASHRC ${HOME}/.bashrc
+if [ "$BASH_INSTALLED" = true ]; then
+    if [ `command -v git` ]; then
+        echo "-> installing Bash-It"
+        git clone --depth=1 https://github.com/Bash-it/bash-it.git ${HOME}/.bash_it
+        ${HOME}/.bash_it/install.sh --interactive
     fi
-else
-    echo "-> link $BASHRC to ${HOME}/.bashrc"
-    ln -s $BASHRC ${HOME}/.bashrc
+    BASHRC="${DIR}/.bashrc"
+    #if [ -f ${HOME}/.bashrc ]; then
+    #    if [ ! `readlink -f ${HOME}/.bashrc` = $BASHRC ]; then
+    #        echo "-> move ${HOME}/.bashrc to ${HOME}/.bashrc_bak"
+    #        mv ${HOME}/.bashrc ${HOME}/.bashrc_bak
+    #        echo "-> link $BASHRC to ${HOME}/.bashrc"
+    #        ln -s $BASHRC ${HOME}/.bashrc
+    #    fi
+    #else
+    #    echo "-> link $BASHRC to ${HOME}/.bashrc"
+    #    ln -s $BASHRC ${HOME}/.bashrc
+    #fi
+fi
+
+################
+# install hstr #
+################
+if [ "$HSTR" = true ]; then
+    sudo add-apt-repository ppa:ultradvorka/ppa && sudo apt-get update && sudo apt-get install hh && hh --show-configuration >> ~/.bashrc
 fi
 
 ###########################
